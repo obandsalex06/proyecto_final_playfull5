@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"; // 👈 Importa Link
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,12 +18,17 @@ export default function Navbar() {
           <a href="#testimonials" className="text-gray-700 hover:text-purple-600 transition">
             Testimonios
           </a>
-          <a href="#contact" className="text-gray-700 hover:text-purple-600 transition">
-            Contacto
+          <a href="/admin" className="text-gray-700 hover:text-purple-600 transition">
+            Administrador
           </a>
-          <button className="px-5 py-2 bg-purple-600 text-white rounded-xl shadow hover:bg-purple-700 transition">
+
+          {/* 👇 Aquí reemplazamos el botón por un Link */}
+          <Link
+            to="/login"
+            className="px-5 py-2 bg-purple-600 text-white rounded-xl shadow hover:bg-purple-700 transition"
+          >
             Iniciar sesión
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -46,9 +52,14 @@ export default function Navbar() {
           <a href="#contact" className="text-gray-700 hover:text-purple-600 transition">
             Contacto
           </a>
-          <button className="px-5 py-2 bg-purple-600 text-white rounded-xl shadow hover:bg-purple-700 transition">
+
+          {/* También aquí 👇 */}
+          <Link
+            to="/login"
+            className="px-5 py-2 bg-purple-600 text-white rounded-xl shadow hover:bg-purple-700 transition"
+          >
             Iniciar sesión
-          </button>
+          </Link>
         </div>
       )}
     </nav>

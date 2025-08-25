@@ -6,7 +6,7 @@ export default function Footer() {
         <div>
           <h3 className="font-bold text-lg mb-2">Contáctanos</h3>
           <p>Email: soporte@playfullearning.com</p>
-          <p>Tel: +57 300 123 4567</p>
+          <p>Tel: +57 313 325 2622</p>
         </div>
 
         {/* Sección enlaces */}

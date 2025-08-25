@@ -1,12 +1,12 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/footer";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Nuevo Navbar */}
-      <Navbar />
-
+      <Navbar /> 
       {/* Contenido principal */}
       <main className="flex-grow">
         {/* Hero Section */}
@@ -27,6 +27,7 @@ export default function Home() {
             </button>
           </div>
         </section>
+        
 
         {/* Features Section */}
         <section className="mt-16 max-w-6xl mx-auto grid gap-8 md:grid-cols-3 px-6">
@@ -79,9 +80,13 @@ export default function Home() {
           <p className="mt-3 text-lg text-purple-200">
             Regístrate gratis y forma parte de nuestra comunidad de aprendizaje.
           </p>
-          <button className="mt-6 px-8 py-3 bg-yellow-400 text-purple-700 font-bold rounded-xl shadow hover:bg-yellow-300 transition">
+          <br />
+          <Link
+            to="/Register"
+            className="mt-6 px-8 py-3 bg-yellow-400 text-purple-700 font-bold rounded-xl shadow hover:bg-yellow-300 transition"
+          >
             Crear mi cuenta
-          </button>
+          </Link>
         </section>
       </main>
 

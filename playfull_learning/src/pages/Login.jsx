@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -15,15 +14,28 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Iniciando sesión con:", formData);
-    // Aquí puedes agregar lógica para enviar datos al backend
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      <Navbar />
+    <div className="flex min-h-screen bg-gray-50 items-center justify-center px-4">
+      <div className="bg-white shadow-xl rounded-3xl grid md:grid-cols-2 w-full max-w-4xl overflow-hidden">
+        
+        {/* Lado izquierdo: mensaje */}
+        <div className="bg-purple-600 text-white flex flex-col items-center justify-center p-10">
+          <h2 className="text-3xl font-bold text-center">¡Bienvenido de nuevo! 🎉</h2>
+          <p className="mt-4 text-center text-lg">
+            ¿Aún no tienes cuenta?  
+          </p>
+          <Link
+            to="/register"
+            className="mt-6 px-6 py-3 bg-white text-purple-600 font-bold rounded-xl shadow hover:bg-gray-100 transition"
+          >
+            Crear cuenta
+          </Link>
+        </div>
 
-      <main className="flex-grow flex items-center justify-center py-20 px-4">
-        <div className="bg-white rounded-3xl shadow-xl max-w-md w-full p-8">
+        {/* Lado derecho: formulario */}
+        <div className="p-8">
           <h1 className="text-3xl font-bold text-purple-700 text-center">
             Iniciar sesión
           </h1>
@@ -41,7 +53,6 @@ export default function Login() {
               required
               className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
-
             <input
               type="password"
               name="contraseña"
@@ -51,7 +62,6 @@ export default function Login() {
               required
               className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
             />
-
             <button
               type="submit"
               className="mt-4 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl shadow hover:bg-purple-700 transition"
@@ -60,16 +70,14 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="mt-4 text-gray-500 text-center">
-            ¿No tienes cuenta?{" "}
-            <a href="/register" className="text-purple-600 font-semibold hover:underline">
-              Regístrate
-            </a>
-          </p>
+          <Link
+            to="/home"
+            className="block mt-6 text-purple-600 font-semibold hover:underline text-center"
+          >
+            Volver al inicio
+          </Link>
         </div>
-      </main>
-
-      <Footer />
+      </div>
     </div>
   );
 }
