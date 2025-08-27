@@ -19,7 +19,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/register", {
+      const res = await fetch("http://localhost:4000/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -36,11 +36,11 @@ export default function Register() {
 
       if (res.ok) {
         setMensaje("✅ Usuario registrado con éxito");
-        setTimeout(() => navigate("/login"), 2000); // redirige al login
+        setTimeout(() => navigate("/Login"), 2000); // redirige al login
       } else {
         setMensaje("❌ " + (data.error || data.message));
       }
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       setMensaje("⚠️ Error de conexión con el servidor");
     }
@@ -49,12 +49,12 @@ export default function Register() {
   return (
     <div className="flex min-h-screen bg-gray-50 items-center justify-center px-4">
       <div className="bg-white shadow-xl rounded-3xl grid md:grid-cols-2 w-full max-w-4xl overflow-hidden">
-        
+
         {/* Lado izquierdo: mensaje */}
         <div className="bg-purple-600 text-white flex flex-col items-center justify-center p-10">
           <h2 className="text-3xl font-bold text-center">¡Únete a Playful Learning 🚀!</h2>
           <p className="mt-4 text-center text-lg">
-            ¿Ya tienes cuenta?  
+            ¿Ya tienes cuenta?
           </p>
           <Link
             to="/login"
