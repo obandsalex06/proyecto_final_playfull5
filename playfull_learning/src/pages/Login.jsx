@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -7,13 +7,40 @@ export default function Login() {
     contraseña: "",
   });
 
+  const [mensaje, setMensaje] = useState("");
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Iniciando sesión con:", formData);
+
+    try {
+      const res = await fetch("http://localhost:4000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          correo: formData.email,
+          contrasena: formData.contraseña,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // guardar token en localStorage
+        localStorage.setItem("token", data.token);
+        setMensaje("✅ Login exitoso, redirigiendo...");
+        setTimeout(() => navigate("/dashboard"), 1500); // redirigir al dashboard
+      } else {
+        setMensaje("❌ " + (data.error || data.message));
+      }
+    // eslint-disable-next-line no-unused-vars
+    } catch (err) {
+      setMensaje("⚠️ Error de conexión con el servidor");
+    }
   };
 
   return (
@@ -69,6 +96,13 @@ export default function Login() {
               Iniciar sesión
             </button>
           </form>
+
+          {/* Mensaje de éxito o error */}
+          {mensaje && (
+            <p className="mt-4 text-center font-semibold text-purple-600">
+              {mensaje}
+            </p>
+          )}
 
           <Link
             to="/home"

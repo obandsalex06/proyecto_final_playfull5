@@ -8,16 +8,42 @@ export default function Register() {
     contraseña: "",
   });
 
+  const [mensaje, setMensaje] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Registrando usuario:", formData);
-    navigate("/login");
+
+    try {
+      const res = await fetch("http://localhost:4000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: formData.nombre,
+          apellido: "", // si no lo pides, mándalo vacío
+          correo: formData.email,
+          contrasena: formData.contraseña,
+          telefono: "", // opcional
+          id_rol: 3, // estudiante
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setMensaje("✅ Usuario registrado con éxito");
+        setTimeout(() => navigate("/login"), 2000); // redirige al login
+      } else {
+        setMensaje("❌ " + (data.error || data.message));
+      }
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      setMensaje("⚠️ Error de conexión con el servidor");
+    }
   };
 
   return (
@@ -83,8 +109,15 @@ export default function Register() {
             </button>
           </form>
 
+          {/* Mensaje de éxito o error */}
+          {mensaje && (
+            <p className="mt-4 text-center font-semibold text-purple-600">
+              {mensaje}
+            </p>
+          )}
+
           <Link
-            to="/home"
+            to="/Home"
             className="block mt-6 text-purple-600 font-semibold hover:underline text-center"
           >
             Ir al inicio
